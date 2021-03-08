@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password',
+        'password'
     ];
 
     /**
@@ -28,16 +29,22 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password'
     ];
 
+
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * 1 user can send many message
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function fromUser() {
+        return $this->hasMany('App\Models\User');
+    }   
+    
+
+    /**
+     * 1 user can receive many message
+     */
+    public function toUser() {
+        return $this->hasMany('App\Models\User');
+    }
 }
