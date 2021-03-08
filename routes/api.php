@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * Default to connect / create / disconnect user
+ */
+Route::post('/connexion', [AuthController::class, "connection"])->name('api.connexion');
+Route::post('/inscription', [AuthController::class, "register"])->name('api.inscription');
+Route::get('/logout', [AuthController::class, "logout"])->middleware('auth:api')->name('api.logout');
+
+
+/**
+ * Store messages and retrieve
+ */
+Route::middleware('auth:api')->group(function() {
+    Route::get('/messages', [MessageController::class, 'store'])->name('api.message.store');
+    Route::post('/messages', [MessageController::class, 'retrieve'])->name('api.message.retrieve');
 });
