@@ -16,7 +16,6 @@ class Message extends Model
      */
     protected $fillable = [
         'from',
-        'to',
         'content'
     ];
 
@@ -27,13 +26,4 @@ class Message extends Model
     {
         return $this->belongsTo('App\Models\User', 'from', 'id');
     }
-
-
-    /**
-     * 1 message belong to user
-     */
-    public function toUser()
-    {
-        return $this->belongsTo('App\Models\User', 'to', 'id');
-    } 
 }

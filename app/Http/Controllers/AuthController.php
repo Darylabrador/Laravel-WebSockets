@@ -131,4 +131,16 @@ class AuthController extends Controller
         });
         return response()->json(['success' => true]);
     }
+
+
+    /**
+     * Check token validity
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function verifyToken()
+    {
+        $loggedUser   = Auth::user();
+        return response()->json(['data' => $loggedUser]);
+    }
 }

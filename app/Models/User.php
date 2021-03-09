@@ -39,12 +39,4 @@ class User extends Authenticatable
     public function fromUser() {
         return $this->hasMany('App\Models\User');
     }   
-    
-
-    /**
-     * 1 user can receive many message
-     */
-    public function toUser() {
-        return $this->hasMany('App\Models\User');
-    }
 }

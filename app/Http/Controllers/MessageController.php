@@ -20,12 +20,10 @@ class MessageController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'to'      => 'required|integer',
                 'content' => 'required',
             ],
             [
                 'required' => 'Le champ :attribute est requis',
-                'integer' => ':attribute invalide',
             ]
         );
 
@@ -38,12 +36,10 @@ class MessageController extends Controller
             ]);
         }
 
-        $toUser    = $validator->validated()['to'];
         $content   = $validator->validated()['content'];
 
         Message::create([
             'from'    => Auth::id(),
-            'to'      => $toUser,
             'content' => $content
         ]);
 
@@ -60,9 +56,7 @@ class MessageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function retrieve() {
-        $user   = Auth::user();
-        $userId = $user->id;
-        $messages = Message::where(['from' => $userId])->get();
+        $messages = Message::all();
         return MessageResource::collection($messages);
     }
 }

@@ -16,18 +16,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/**
- * Default to connect / create / disconnect user
- */
+/*
+|--------------------------------------------------------------------------
+|  Default to connect / create / disconnect user
+|--------------------------------------------------------------------------
+*/
+
 Route::post('/connexion', [AuthController::class, "connection"])->name('api.connexion');
 Route::post('/inscription', [AuthController::class, "register"])->name('api.inscription');
 Route::get('/logout', [AuthController::class, "logout"])->middleware('auth:api')->name('api.logout');
+Route::get('/verify', [AuthController::class, "verifyToken"])->middleware('auth:api')->name('api.verify');
 
+/*
+|--------------------------------------------------------------------------
+|  Store messages and retrieve
+|--------------------------------------------------------------------------
+*/
 
-/**
- * Store messages and retrieve
- */
 Route::middleware('auth:api')->group(function() {
     Route::get('/messages', [MessageController::class, 'store'])->name('api.message.store');
     Route::post('/messages', [MessageController::class, 'retrieve'])->name('api.message.retrieve');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Default route if no one found
+|--------------------------------------------------------------------------
+*/
+
+Route::fallback(function () {
+    return response()->json([
+        "message" => "Cette route n'existe pas"
+    ], 404);
 });
