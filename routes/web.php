@@ -39,6 +39,6 @@ Route::get('/inscription', function(){
 |--------------------------------------------------------------------------
 */
 
-// Route::get('/laravel-websockets', function () {
-//     return redirect()->route('login');
-// });
+Route::get('/laravel-websockets', function () {
+    return redirect()->route('login');
+});
