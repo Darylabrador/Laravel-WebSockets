@@ -15,11 +15,13 @@ window.addEventListener("DOMContentLoaded", (event) => {
             let messagerie = document.getElementById('messagerie');
             let arrayUser = [];
             let leavingArray;
-
-            Echo.join(`chat`)
+            
+            await Echo.join(`chat`)
                 .here((users) => {
                     arrayUser = users;
-                    console.log(arrayUser)
+                    let arrayFiltered = arrayUser.filter(info => info.id != userId);
+                    arrayUser = arrayFiltered;
+                    console.log('liste utilisateur connecté : ', arrayUser)
                 })
                 .joining((user) => {
                     console.log(`${user.name} a rejoint le salon`);

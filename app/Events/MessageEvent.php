@@ -14,7 +14,6 @@ class MessageEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    private $userId;
     private $message;
 
     /**
@@ -22,9 +21,8 @@ class MessageEvent
      *
      * @return void
      */
-    public function __construct($userId, $message)
+    public function __construct($message)
     {
-        $this->userId  = $userId;
         $this->message = $message;
     }
 
