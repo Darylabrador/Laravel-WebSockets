@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\MessageResource;
 use App\Models\Message;
-use App\Models\User;
+use App\Events\MessageEvent;
+use App\Http\Resources\MessageResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -42,6 +42,8 @@ class MessageController extends Controller
             'from'    => Auth::id(),
             'content' => $content
         ]);
+
+        broadcast(new MessageEvent());
 
         return response()->json([
             'success' => true,

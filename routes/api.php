@@ -34,8 +34,8 @@ Route::get('/verify', [AuthController::class, "verifyToken"])->middleware('auth:
 */
 
 Route::middleware('auth:api')->group(function() {
-    Route::get('/messages', [MessageController::class, 'store'])->name('api.message.store');
-    Route::post('/messages', [MessageController::class, 'retrieve'])->name('api.message.retrieve');
+    Route::get('/messages', [MessageController::class, 'retrieve'])->name('api.message.retrieve');
+    Route::post('/messages', [MessageController::class, 'store'])->name('api.message.store');
 });
 
 /*

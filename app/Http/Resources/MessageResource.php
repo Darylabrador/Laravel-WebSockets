@@ -21,6 +21,7 @@ class MessageResource extends JsonResource
         return [
             'id'         => $this->id,
             'from'       => new UserRessource($this->fromUser),
+            'content'   => $this->content,
             'created_at' => $createdFormated
         ];
     }
